@@ -108,7 +108,7 @@ class App {
 			if($value['expireDate'] instanceof \DateTime) {
 				$expireDate = $value['expireDate']->getTimestamp();
 			}
-			setcookie($name, $value['value'], $expireDate, $container->getServer()->getWebRoot(), null, $container->getServer()->getConfig()->getSystemValue('forcessl', false), true);
+			setcookie($name, $value['value'], $expireDate, $container->getServer()->getWebRoot(), null, $container->getServer()->getRequest()->getServerProtocol() === 'https', true);
 		}
 
 		if(!is_null($output)) {
