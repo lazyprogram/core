@@ -343,4 +343,25 @@ interface Storage {
 	 * @return array|false
 	 */
 	public function getDirectDownload($path);
+
+	/**
+	 * Test a storage
+	 *
+	 * @return bool
+	 */
+	public function test();
+
+	/**
+	 * Get availability of the storage
+	 *
+	 * @return array [ available, last_checked ]
+	 */
+	public function getAvailability();
+
+	/**
+	 * Set availability of the storage
+	 *
+	 * @param bool $isAvailable
+	 */
+	public function setAvailability($isAvailable);
 }
