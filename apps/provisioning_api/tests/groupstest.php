@@ -59,7 +59,11 @@ class GroupsTest extends TestCase {
 
 		$this->assertInstanceOf('OC_OCS_Result', $result);
 		$this->assertTrue($result->succeeded());
-		$this->assertEquals(array('users' => $users), $result->getData());
+		$resultData = $result->getData();
+
+		sort($users);
+		sort($resultData);
+		$this->assertEquals(array('users' => $users), $resultData);
 
 	}
 
