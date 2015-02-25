@@ -196,7 +196,9 @@ class ObjectTree extends \Sabre\DAV\ObjectTree {
 
 		try {
 			if ($this->fileView->is_file($source)) {
-				$this->fileView->copy($source, $destination);
+				if (!$this->fileView->copy($source, $destination)) {
+					throw new \Sabre\DAV\Exception\Forbidden('');
+				}
 			} else {
 				$this->fileView->mkdir($destination);
 				$dh = $this->fileView->opendir($source);
@@ -204,7 +206,9 @@ class ObjectTree extends \Sabre\DAV\ObjectTree {
 					while (($subNode = readdir($dh)) !== false) {
 
 						if ($subNode == '.' || $subNode == '..') continue;
-						$this->copy($source . '/' . $subNode, $destination . '/' . $subNode);
+						if (!$this->copy($source . '/' . $subNode, $destination . '/' . $subNode)) {
+							throw new \Sabre\DAV\Exception\Forbidden('');
+						};
 
 					}
 				}
